@@ -2,42 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
-use Illuminate\Http\Request;
+use App\Http\Requests\MessageRequest;
+use App\Models\Message;
 
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $title = 'Контакты';
-        return view('contacts', compact('title'));
+        return view('contacts');
     }
 
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
+        $message            = new Message();
+        $message->email     = request('email');
+        $message->message   = request('message');
 
-      $this->validate(request(), [
-          'email'   => 'required',
-          'message' => 'required',
-      ]);
+        $message->save();
 
-      $message = new Message();
-      $message->email   = request('email');
-      $message->message = request('message');
-
-      $message->save();
-
-      return redirect('/');
+        return redirect('/');
     }
 }

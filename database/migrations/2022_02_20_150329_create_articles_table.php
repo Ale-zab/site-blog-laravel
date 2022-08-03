@@ -14,7 +14,7 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->id('id');
+            $table->increments('id');
             $table->string('name', 255)->collation('utf8mb4_unicode_ci');
             $table->string('short_description', 100)->collation('utf8mb4_unicode_ci');
             $table->text('description')->collation('utf8mb4_unicode_ci');

@@ -2,26 +2,15 @@
     <div class="position-sticky" style="top: 2rem;">
         <div class="p-4 mb-3 bg-light rounded">
             <h4 class="fst-italic">О нас</h4>
-            <p class="mb-0">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Даже рот всемогущая всеми, моей, составитель, жаренные маленький дал рыбного ты запятой путь реторический безорфографичный скатился? Если путь ipsum заголовок, лучше в...</p>
+            <p class="mb-0">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Даже
+                рот всемогущая всеми, моей, составитель, жаренные маленький дал рыбного ты запятой путь реторический
+                безорфографичный скатился? Если путь ipsum заголовок, лучше в<a href="/aboutus">...</a></p>
         </div>
 
         <div class="p-4">
-            <h4 class="fst-italic">Archives</h4>
-            <ol class="list-unstyled mb-0">
-              <li><a href="#">March 2021</a></li>
-              <li><a href="#">February 2021</a></li>
-              <li><a href="#">January 2021</a></li>
-              <li><a href="#">December 2020</a></li>
-              <li><a href="#">November 2020</a></li>
-              <li><a href="#">October 2020</a></li>
-              <li><a href="#">September 2020</a></li>
-              <li><a href="#">August 2020</a></li>
-              <li><a href="#">July 2020</a></li>
-              <li><a href="#">June 2020</a></li>
-              <li><a href="#">May 2020</a></li>
-              <li><a href="#">April 2020</a></li>
-            </ol>
-          </div>
+            <h4 class="fst-italic">Теги</h4>
+            @include('tags', ['tags' => $tags])
+        </div>
 
         <div class="p-4">
             <h4 class="fst-italic">Elsewhere</h4>
