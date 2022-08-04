@@ -27,3 +27,7 @@ Route::get('/aboutus',          [AboutController::class, 'index']);
 
 
 
+
+Route::view('dashboard', 'dashboard')
+	->name('dashboard')
+	->middleware(['auth', 'verified']);
