@@ -9,6 +9,11 @@ use Illuminate\Support\Collection;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $articles = Article::with('tags')->latest()->get();
@@ -23,11 +28,12 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request, Article $article)
     {
-        $article->name              = request('name');
+        $article->name = request('name');
+        $article->owner_id = auth()->id();
         $article->short_description = request('short_description');
-        $article->description       = request('description');
-        $article->url               = request('url');
-        $article->status            = request('status') ? 1 : 0;
+        $article->description = request('description');
+        $article->url = request('url');
+        $article->status = request('status') ? 1 : 0;
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
@@ -35,35 +41,25 @@ class ArticleController extends Controller
         return redirect('/articles/' . $article->url);
     }
 
-    public function show($index)
+    public function show(Article $article)
     {
-        $article = Article::get($index);
-
-        if (!$article) {
-            return abort(404);
-        }
-
         return view('show', compact('article'));
     }
 
-    public function edit($index)
+    public function edit(Article $article)
     {
-        $article = Article::get($index);
-
-        if (!$article) {
-            return abort(404);
-        }
+        $this->authorize('update', $article);
 
         return view('edit', compact('article'));
     }
 
     public function update(ArticleRequest $request, Article $article)
     {
-        $article->name              = request('name');
+        $article->name = request('name');
         $article->short_description = request('short_description');
-        $article->description       = request('description');
-        $article->url               = request('url');
-        $article->status            = request('status') ? 1 : 0;
+        $article->description = request('description');
+        $article->url = request('url');
+        $article->status = request('status') ? 1 : 0;
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
@@ -73,6 +69,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        $this->authorize('update', $article);
         $article->delete();
 
         return redirect('/articles');
@@ -80,10 +77,10 @@ class ArticleController extends Controller
 
     protected function getCollectTags($request = ''): Collection
     {
-         $tags = collect(explode(',', $request))->keyBy(function ($item) {
+        $tags = collect(explode(',', $request))->keyBy(function ($item) {
             return $item;
         });
 
-         return $tags;
+        return $tags;
     }
 }

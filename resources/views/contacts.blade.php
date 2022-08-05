@@ -40,7 +40,10 @@
                 </form>
             </div>
 
+
             @include('common.column')
+
+
         </div>
     </main>
 @endsection

@@ -16,7 +16,20 @@
                         <path d="M21 21l-5.2-5.2"/>
                     </svg>
                 </a>
-                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+                @guest
+                    <a class="mr10 btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Войти</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('register') }}">Регистрация</a>
+                @else
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <span>Привет, {{ auth()->user()->name }}</span>
+
+                        <button class="mr10 btn btn-sm btn-outline-secondary" type="submit">
+                            {{ __('Logout') }}
+                        </button>
+                    </form>
+                @endguest
             </div>
         </div>
     </header>
