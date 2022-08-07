@@ -16,7 +16,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = Article::with('tags')->latest()->publish();
 
         return view('articles', compact('articles'));
     }
@@ -28,12 +28,8 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request, Article $article)
     {
-        $article->name = request('name');
-        $article->owner_id = auth()->id();
-        $article->short_description = request('short_description');
-        $article->description = request('description');
-        $article->url = request('url');
-        $article->status = request('status') ? 1 : 0;
+        $request['owner_id'] = auth()->id();
+        $article->fill($request->all());
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
@@ -55,11 +51,7 @@ class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article)
     {
-        $article->name = request('name');
-        $article->short_description = request('short_description');
-        $article->description = request('description');
-        $article->url = request('url');
-        $article->status = request('status') ? 1 : 0;
+        $article->fill($request->all());
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);

@@ -4,6 +4,7 @@
 @if (isset($article->id))
     <input type="hidden" name="id" value="{{ $article->id }}">
 @endif
+{{--    <input type="hidden" name="owner_id" value="{{ auth()->id() }}">--}}
 
 <div class="mb-3">
     <label for="name" class="form-label">Название *</label>
@@ -78,7 +79,7 @@
 <div class="mb-3">
     <label for="tags" class="form-label">Теги</label>
 
-    @if (isset($article->description))
+    @if (isset($article->tags))
         <input type="text" name="tags" class="form-control" placeholder="Теги" id="tags"
                value="{{ old('tags', $article->tags->pluck('name')->implode(',')) }}">
     @else
@@ -87,16 +88,19 @@
 </div>
 
 <div class="mb-3 form-check">
+
     @if (isset($article->status))
         @if ($article->status)
-            <input type="checkbox" class="form-check-input" id="status" name="status" checked="checked">
+            <input type="checkbox" class="form-check-input" id="status" name="status" checked="checked" value="1">
         @else
-            <input type="checkbox" class="form-check-input" id="status" name="status">
+            <input type="checkbox" class="form-check-input" id="status" name="status" value="0">
         @endif
     @else
-        <input type="checkbox" class="form-check-input" id="status" name="status">
+        <input type="checkbox" class="form-check-input" id="status" name="status" value="0">
     @endif
+
     <label class="form-check-label" for="status">Вкл/ Выкл</label>
 </div>
 
 <button type="submit" class="btn btn-primary">Отправить</button>
+

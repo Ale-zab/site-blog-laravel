@@ -9,7 +9,8 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['*'];
+    protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
+    protected $guarded = ['_method', '_token'];
 
     public function getRouteKeyName()
     {
@@ -26,9 +27,8 @@ class Article extends Model
         return $query->where('status', 1)->latest()->get();
     }
 
-    public function get($url) {
+    public function get($url)
+    {
        return self::where('url', '=', $url)->first();
     }
 }
-
-
