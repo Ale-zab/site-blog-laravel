@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Events\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +12,6 @@ class Article extends Model
 
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
-//    protected $dispatchesEvents = [
-//        'created' => ArticleCreated::class,
-//    ];
 
     public function getRouteKeyName()
     {
@@ -35,10 +31,5 @@ class Article extends Model
     public function get($url)
     {
         return self::where('url', '=', $url)->first();
-    }
-
-    public function owner()
-    {
-        return $this->belongsTo(User::class);
     }
 }

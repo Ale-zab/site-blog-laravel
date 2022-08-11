@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Notifications\Article as ArticleNotifications;
 use App\Models\Article;
 use App\Http\Requests\ArticleRequest;
@@ -35,7 +34,6 @@ class ArticleController extends Controller
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
-
         auth()->user()->notify(new ArticleNotifications($article, 'Создание статьи', true));
 
         return redirect('/articles/' . $article->url);
@@ -68,6 +66,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
         $article->delete();
+
         auth()->user()->notify(new ArticleNotifications($article, 'Удаление статьи', false));
 
         return redirect('/articles');
