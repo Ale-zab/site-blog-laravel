@@ -133,3 +133,37 @@ h1, h2, h3, h4, h5, h6 {
 .blog-post {
     margin: 0;
 }
+
+.form-auth {
+    display: block;
+    margin: 50px auto;
+    width: max-content;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.form-auth__item {
+    margin-bottom: 10px;
+}
+
+.form-auth__item:last-child {
+    margin-bottom: 0;
+}
+
+.form-auth__input {
+    min-width: 280px;
+}
+
+.form-auth__link {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.form-auth__lable {
+    margin-bottom: 0;
+}
+
+.mr10 {
+    margin-right: 10px;
+}

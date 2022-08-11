@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class TagsSynchronizer
 {
-    public function sync(Collection $tags, Model $model)
+    static public function sync(Collection $tags, Model $model)
     {
         $articleTags    = $model->tags->keyBy('name');
         $syncIds        = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();

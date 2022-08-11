@@ -22,12 +22,4 @@ Route::get('/admin',            [AdminController::class, 'index']);
 Route::get('/admin/feedback',   [AdminController::class, 'feedback']);
 Route::get('/aboutus',          [AboutController::class, 'index']);
 
-
-
-
-
-
-
-Route::view('dashboard', 'dashboard')
-	->name('dashboard')
-	->middleware(['auth', 'verified']);
+Route::view('dashboard', 'dashboard')->name('dashboard')->middleware(['auth', 'verified']);

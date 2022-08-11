@@ -15,6 +15,7 @@ class ArticleFactory extends Factory
     {
         return [
             'name'              => $this->faker->words(2, true),
+            'owner_id'          => $this->faker->numberBetween(1, 3),
             'short_description' => $this->faker->sentence(),
             'description'       => $this->faker->paragraph(5, false),
             'url'               => $this->faker->domainWord(),

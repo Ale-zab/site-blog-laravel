@@ -52,7 +52,7 @@ class ArticleRequest extends FormRequest
         return [
             'required'              => 'Поле ":attribute" обязательно для заполнения',
             'min'                   => 'Поле ":attribute" не должно быть меньше :min символов',
-            'max'                   => 'Поле "Название" не должно превышать :max символов',
+            'max'                   => 'Поле ":attribute" не должно превышать :max символов',
             'unique'                => 'Данное значение уже используется',
         ];
     }

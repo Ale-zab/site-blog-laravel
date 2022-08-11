@@ -7,8 +7,11 @@
             <div class="col-md-8">
                 <article class="blog-post">
                     <h2 class="blog-post-title">{{ $article->name }}</h2>
-                    <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }} /
-                        <a href="/articles/{{ $article->url }}/edit">Редактировать</a>
+                    <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}
+                        @can('update', $article)
+                            /
+                            <a href="/articles/{{ $article->url }}/edit">Редактировать</a>
+                        @endcan
                     </p>
 
                     @include('tags', ['tags' => $article->tags])
