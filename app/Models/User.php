@@ -9,6 +9,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function routeNotificationForMail($notification)
+    {
+        return 'admin@yandex.ru';
+    }
+
     /**
      * The attributes that are mass assignable.
      *

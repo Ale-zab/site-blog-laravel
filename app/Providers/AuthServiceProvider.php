@@ -17,10 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Contracts\Auth\Access\Gate $gate)
     {
         $this->registerPolicies();
-
-        //
     }
 }
