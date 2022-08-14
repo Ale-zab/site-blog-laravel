@@ -11,7 +11,7 @@ class User extends Authenticatable
 
     public function routeNotificationForMail($notification)
     {
-        return 'admin@yandex.ru';
+        return $this->isAdmin();
     }
 
     /**
@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return self::where('is_admin', 1)->get();
+    }
 }

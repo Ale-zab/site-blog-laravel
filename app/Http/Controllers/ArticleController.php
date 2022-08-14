@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\Article as ArticleNotifications;
+
 use App\Models\Article;
 use App\Http\Requests\ArticleRequest;
+use App\Models\User;
 use App\Services\TagsSynchronizer;
 use Illuminate\Support\Collection;
 
@@ -18,7 +19,6 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::with('tags')->latest()->publish();
-
         return view('articles', compact('articles'));
     }
 
@@ -34,7 +34,6 @@ class ArticleController extends Controller
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
-        auth()->user()->notify(new ArticleNotifications($article, 'Создание статьи', true));
 
         return redirect('/articles/' . $article->url);
     }
@@ -57,7 +56,6 @@ class ArticleController extends Controller
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);
-        auth()->user()->notify(new ArticleNotifications($article, 'Редактирование статьи', true));
 
         return redirect('/articles/' . $article->url);
     }
@@ -66,8 +64,6 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
         $article->delete();
-
-        auth()->user()->notify(new ArticleNotifications($article, 'Удаление статьи', false));
 
         return redirect('/articles');
     }
