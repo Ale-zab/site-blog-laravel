@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use App\Notifications\Article as ArticleNotifications;
-use App\Events\ArticleCreated;
+
+use App\Events\Article\ArticleDeleted;
+use App\Events\Article\ArticleUpdated;
+use App\Events\Article\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,23 +16,11 @@ class Article extends Model
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($article) {
-            auth()->user()->notify(new ArticleNotifications($article, 'Статья создана', true));
-        });
-
-        static::updated(function ($article) {
-            auth()->user()->notify(new ArticleNotifications($article, 'Статья обновлена', true));
-        });
-
-
-        static::deleted(function ($article) {
-            auth()->user()->notify(new ArticleNotifications($article, 'Статья удалена', false));
-        });
-    }
+    protected $dispatchesEvents = [
+        'created' => ArticleCreated::class,
+        'deleted' => ArticleDeleted::class,
+        'updated' => ArticleUpdated::class,
+    ];
 
     public function getRouteKeyName()
     {
