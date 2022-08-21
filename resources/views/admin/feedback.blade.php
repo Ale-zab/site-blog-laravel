@@ -12,29 +12,29 @@
                         безорфографичный скатился?</p>
                 </article>
 
-                <table class="blog-post" style="width: 100%">
-                    <thead>
+                <table class="table" style="width: 100%">
+                    <thead class="thead-dark">
                     <tr>
-                        <th>Email</th>
-                        <th>Сообщение</th>
-                        <th>Дата получения</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Сообщение</th>
+                        <th scope="col">Дата получения</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    @if ($messages->count())
-                        @foreach($messages as $message)
-                            <tr>
-                                <td>{{$message->email}}</td>
-                                <td>{{$message->message}}</td>
-                                <td>{{$message->created_at->format('H:m:s d.m.Y')}}</td>
-                            </tr>
-                        @endforeach
-                    @else
+
+                    @forelse($messages as $message)
+                        <tr>
+                            <td class="link-dark">{{$message->email}}</td>
+                            <td class="link-dark">{{$message->message}}</td>
+                            <td class="link-dark">@datetime($message->created_at)</td>
+                        </tr>
+                    @empty
                         <tr>
                             <td colspan="3">Сообщения отсутствуют</td>
                         </tr>
-                    @endif
+                    @endforelse
+
                     </tbody>
                 </table>
             </div>

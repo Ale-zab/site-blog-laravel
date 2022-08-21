@@ -40,7 +40,11 @@
             <a class="p-2 link-secondary" href="/aboutus">О нас</a>
             <a class="p-2 link-secondary" href="/contacts">Контакты</a>
             <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
+
+            @admin
             <a class="p-2 link-secondary" href="/admin">Админ. раздел</a>
+            @endadmin
+
         </nav>
     </div>
 </div>

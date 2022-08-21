@@ -17,6 +17,12 @@
                         Сообщения
                     </a>
                 </div>
+
+                <div class="list-group mb-4">
+                    <a href="/admin/articles" class="list-group-item list-group-item-action">
+                        Статьи
+                    </a>
+                </div>
             </div>
         </div>
     </main>

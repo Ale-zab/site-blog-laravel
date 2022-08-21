@@ -4,7 +4,6 @@
 @if (isset($article->id))
     <input type="hidden" name="id" value="{{ $article->id }}">
 @endif
-{{--    <input type="hidden" name="owner_id" value="{{ auth()->id() }}">--}}
 
 <div class="mb-3">
     <label for="name" class="form-label">Название *</label>
