@@ -22,7 +22,14 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \DB::table('users')->insert([
+            'name'      => 'Андрей',
+            'email'     => 'admin@mail.ru',
+            'password'  => Hash::make('21212121')
+        ]);
     }
+
 
     /**
      * Reverse the migrations.
