@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\ArticleRequest;
 use App\Services\TagsSynchronizer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ArticleController extends Controller
