@@ -16,11 +16,11 @@ class Article extends Model
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
 
-//    protected $dispatchesEvents = [
-//        'created' => ArticleCreated::class,
-//        'deleted' => ArticleDeleted::class,
-//        'updated' => ArticleUpdated::class,
-//    ];
+    protected $dispatchesEvents = [
+        'created' => ArticleCreated::class,
+        'deleted' => ArticleDeleted::class,
+        'updated' => ArticleUpdated::class,
+    ];
 
     public function getRouteKeyName()
     {

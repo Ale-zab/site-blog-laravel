@@ -23,4 +23,3 @@ class ArticleSeeder extends Seeder
         });
     }
 }
- 
