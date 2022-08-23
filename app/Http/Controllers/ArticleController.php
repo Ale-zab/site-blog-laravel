@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Http\Requests\ArticleRequest;
-use App\Models\User;
 use App\Services\TagsSynchronizer;
 use Illuminate\Support\Collection;
 
@@ -19,6 +18,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::with('tags')->latest()->publish();
+
         return view('articles', compact('articles'));
     }
 

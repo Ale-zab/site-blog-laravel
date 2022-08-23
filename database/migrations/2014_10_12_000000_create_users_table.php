@@ -19,11 +19,17 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \DB::table('users')->insert([
+            'name'      => 'Андрей',
+            'email'     => config('admin.email'),
+            'password'  => Hash::make('21212121')
+        ]);
     }
+
 
     /**
      * Reverse the migrations.

@@ -8,18 +8,18 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'admin']);
     }
 
     public function index()
     {
-        return view('admin');
+        return view('admin.index');
     }
 
     public function feedback()
     {
         $messages = Message::latest()->get();
 
-        return view('feedback', compact('messages'));
+        return view('admin.feedback', compact('messages'));
     }
 }

@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory;
     use Notifiable;
 
     public function routeNotificationForMail($notification)
     {
-        return $this->isAdmin();
+        return Role::admins();
     }
 
     /**
@@ -41,8 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
-    {
-        return self::where('is_admin', 1)->get();
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    public function isAdmin() {
+        return $this->roles()->where('prefix', 'admin')->exists();
     }
 }

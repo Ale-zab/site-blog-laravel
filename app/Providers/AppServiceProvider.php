@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Tag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
@@ -28,5 +29,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Fortify::viewPrefix('auth.');
+
+        \Blade::if('admin', function() {
+            return Auth::user() ? Auth::user()->isAdmin() : false;
+        });
+
+        \Blade::directive('datetime', function($value) {
+            return "<?php echo ($value)->format('H:i:s d.m.Y'); ?>";
+        });
     }
 }

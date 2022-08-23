@@ -10,7 +10,11 @@
                     <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}
                         @can('update', $article)
                             /
-                            <a href="/articles/{{ $article->url }}/edit">Редактировать</a>
+                            @admin
+                                <a href="/admin/articles/{{ $article->url }}/edit">Редактировать</a>
+                            @else
+                                <a href="/articles/{{ $article->url }}/edit">Редактировать</a>
+                            @endadmin
                         @endcan
                     </p>
 

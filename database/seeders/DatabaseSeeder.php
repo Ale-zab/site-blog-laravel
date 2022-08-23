@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        RoleSeeder::run();
+        UserSeeder::run();
+        UserRoleSeeder::run();
         ArticleSeeder::run();
         MessageSeeder::run();
     }
