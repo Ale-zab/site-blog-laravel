@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 class ArticleFactory extends Factory
 {
@@ -15,10 +16,10 @@ class ArticleFactory extends Factory
     {
         return [
             'name'              => $this->faker->words(2, true),
-            'owner_id'          => $this->faker->numberBetween(1, 3),
+            'owner_id'          => User::inRandomOrder()->first(),
             'short_description' => $this->faker->sentence(),
             'description'       => $this->faker->paragraph(5, false),
-            'url'               => $this->faker->domainWord(),
+            'url'               => $this->faker->unique()->domainWord(),
             'status'            => $this->faker->boolean(),
         ];
     }

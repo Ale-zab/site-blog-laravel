@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use App\Models\Article;
+
 
 class ArticleSeeder extends Seeder
 {
@@ -14,6 +16,11 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        Article::factory(20)->create();
+        Article::factory(40)->create()->each(function (Article $article) {
+            $article->tags()->save(
+                Tag::inRandomOrder()->first()
+            );
+        });
     }
 }
+ 
