@@ -27,16 +27,6 @@ class SendMailNewArticleCommand extends Command
     protected $description = 'Send mail to user about new article';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
