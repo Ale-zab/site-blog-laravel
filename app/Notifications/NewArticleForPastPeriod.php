@@ -2,36 +2,28 @@
 
 namespace App\Notifications;
 
-use App\Models\Article as ArticleModel;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Article extends Notification
+class NewArticleForPastPeriod extends Notification
 {
     use Queueable;
-
-    public $article;
-    public $event;
-    public $status;
-
+    protected $articles;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(ArticleModel $article, string $event, bool $status)
+    public function __construct($articles)
     {
-        $this->article  = $article;
-        $this->event    = $event;
-        $this->status   = $status;
+        $this->articles = $articles;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -42,20 +34,20 @@ class Article extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view(
-        'mail.article', ['article' => $this->article, 'event' => $this->event, 'status' => $this->status]
-        );
+        return (new MailMessage)
+            ->subject('Новые статьи за прошедший период')
+            ->view('mail.articles', ['articles' => $this->articles]);
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)

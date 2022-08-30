@@ -11,11 +11,6 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
-    public function routeNotificationForMail($notification)
-    {
-        return Role::admins();
-    }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -50,4 +45,5 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->roles()->where('prefix', 'admin')->exists();
     }
+
 }

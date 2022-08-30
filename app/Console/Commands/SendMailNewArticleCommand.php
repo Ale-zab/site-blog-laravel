@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Article;
 use App\Models\User;
-use App\Notifications\NewArticle;
+use App\Notifications\NewArticleForPastPeriod;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -71,7 +71,7 @@ class SendMailNewArticleCommand extends Command
 
         $users = User::all();
 
-        $users->map->notify(new NewArticle($articles));
+        $users->map->notify(new NewArticleForPastPeriod($articles));
         return self::SUCCESS;
     }
 }
