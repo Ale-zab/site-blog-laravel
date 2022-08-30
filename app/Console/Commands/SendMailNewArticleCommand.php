@@ -56,7 +56,8 @@ class SendMailNewArticleCommand extends Command
         });
 
         if ($dateFromat['dateEnd']->lte($dateFromat['dateStart'])) {
-            return $this->error("Error! Your dateStart > dateEnd");
+            $this->error("Error! Your dateStart > dateEnd");
+            return Command::INVALID;
         }
 
         $articles = Article::where('status', 1)
@@ -64,11 +65,13 @@ class SendMailNewArticleCommand extends Command
             ->get();
 
         if ($articles->isEmpty()) {
-            return $this->line("Articles not found");
+            $this->line("Articles not found");
+            return Command::INVALID;
         }
 
         $users = User::all();
 
         $users->map->notify(new NewArticle($articles));
+        return self::SUCCESS;
     }
 }
