@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notification;
 class NewArticleForPastPeriod extends Notification
 {
     use Queueable;
+
     protected $articles;
+
     /**
      * Create a new notification instance.
      *
@@ -52,8 +54,6 @@ class NewArticleForPastPeriod extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

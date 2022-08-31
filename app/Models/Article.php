@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Events\Article\ArticleDeleted;
 use App\Events\Article\ArticleUpdated;
 use App\Events\Article\ArticleCreated;

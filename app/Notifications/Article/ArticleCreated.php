@@ -59,8 +59,6 @@ class ArticleCreated extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

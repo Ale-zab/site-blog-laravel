@@ -25,7 +25,6 @@ Route::get('/admin/feedback',               [AdminController::class, 'feedback']
 Route::get('/admin/articles',               [AdminArticleController::class, 'index'])->name('admin.article');
 Route::get('/admin/articles/{url}/edit',    [AdminArticleController::class, 'edit']);
 Route::post('/admin/articles/{url}',        [AdminArticleController::class, 'update']);
-Route::get('/admin/articles/{url}',         [AdminArticleController::class, 'edit']);
 Route::post('/admin/articles/delete/{url}', [AdminArticleController::class, 'destroy']);
 
 Route::get('/aboutus',                      [AboutController::class, 'index'])->name('aboutus');;

@@ -59,8 +59,6 @@ class ArticleDeleted extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

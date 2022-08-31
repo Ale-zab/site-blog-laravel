@@ -45,5 +45,4 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->roles()->where('prefix', 'admin')->exists();
     }
-
 }
