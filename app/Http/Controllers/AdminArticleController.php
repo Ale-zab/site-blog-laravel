@@ -21,19 +21,13 @@ class AdminArticleController extends Controller
         return view('admin.articles', compact('articles'));
     }
 
-    public function edit($url)
+    public function edit(Article $article)
     {
-        $article = Article::where('url', $url)->first();
-        abort_if(!$article, 404);
-        
         return view('admin.edit', compact('article'));
     }
 
-    public function update(ArticleRequest $request, $url)
+    public function update(ArticleRequest $request, Article $article)
     {
-        $article = Article::where('url', $url)->first();
-        abort_if(!$article, 404);
-
         $article->fill($request->all());
         $article->save();
 

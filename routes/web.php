@@ -22,10 +22,12 @@ Route::post('/contacts',                    [ContactController::class, 'store'])
 Route::get('/admin',                        [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/feedback',               [AdminController::class, 'feedback']);
 
-Route::get('/admin/articles',               [AdminArticleController::class, 'index'])->name('admin.article');
-Route::get('/admin/articles/{url}/edit',    [AdminArticleController::class, 'edit']);
-Route::post('/admin/articles/{url}',        [AdminArticleController::class, 'update']);
-Route::post('/admin/articles/delete/{url}', [AdminArticleController::class, 'destroy']);
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/articles',                 [AdminArticleController::class, 'index'])->name('article');
+    Route::get('/articles/{article}/edit',  [AdminArticleController::class, 'edit'])->name('article.edit');
+    Route::put('/articles/{article}',       [AdminArticleController::class, 'update'])->name('article.update');
+    Route::delete('/articles/{article}',    [AdminArticleController::class, 'destroy'])->name('article.destroy');
+});
 
 Route::get('/aboutus',                      [AboutController::class, 'index'])->name('aboutus');;
 
