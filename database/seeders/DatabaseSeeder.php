@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         RoleSeeder::run();
         UserRoleSeeder::run();
-        UserSeeder::run();
         TagSeeder::run();
         ArticleSeeder::run();
         MessageSeeder::run();
