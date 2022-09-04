@@ -21,9 +21,14 @@ class ArticleSeeder extends Seeder
 
         User::factory(5)->create()->each(function (User $user) {
             Article::factory(rand(1, 5))->create(['owner_id' => $user->id])->each(function (Article $article) {
-                $article->tags()->save(
-                    Tag::inRandomOrder()->first()
-                );
+                $randTag = Tag::inRandomOrder()->first();
+                $tags = Tag::factory(rand(1, 2))->make();
+
+                if ($randTag) {
+                    $tags->push($randTag);
+                }
+
+                $article->tags()->saveMany($tags);
             });
         });
     }
