@@ -19,10 +19,6 @@ class RoleSeeder extends Seeder
                 'name'      => 'Администратор',
                 'prefix'    => 'admin'
             ],
-            [
-                'name'      => 'Пользователь',
-                'prefix'    => 'user'
-            ]
         ]);
     }
 }

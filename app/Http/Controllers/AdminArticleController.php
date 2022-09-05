@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Article;
 use App\Http\Requests\ArticleRequest;
 use App\Services\TagsSynchronizer;
@@ -22,23 +21,14 @@ class AdminArticleController extends Controller
         return view('admin.articles', compact('articles'));
     }
 
-    public function edit($url)
+    public function edit(Article $article)
     {
-        $article = Article::where('url', $url)->first();
-        abort_if(!$article, 404);
         return view('admin.edit', compact('article'));
     }
 
-    public function update(ArticleRequest $request, $url)
+    public function update(ArticleRequest $request, Article $article)
     {
-        $article = Article::where('url', $url)->first();
-        abort_if(!$article, 404);
-
-        $article->name              = $request->name;
-        $article->short_description = $request->short_description;
-        $article->description       = $request->description;
-        $article->url               = $request->url;
-        $article->status            = $request->status;
+        $article->fill($request->all());
         $article->save();
 
         TagsSynchronizer::sync($this->getCollectTags(request('tags')), $article);

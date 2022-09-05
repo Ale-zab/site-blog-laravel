@@ -1,31 +1,26 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Article;
 
-use App\Models\Article as ArticleModel;
+use App\Models\Article as Article;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Article extends Notification
+class ArticleDeleted extends Notification
 {
     use Queueable;
 
     public $article;
-    public $event;
-    public $status;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(ArticleModel $article, string $event, bool $status)
+    public function __construct(Article $article)
     {
         $this->article  = $article;
-        $this->event    = $event;
-        $this->status   = $status;
     }
 
     /**
@@ -48,8 +43,12 @@ class Article extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)->view(
-        'mail.article', ['article' => $this->article, 'event' => $this->event, 'status' => $this->status]
-        );
+        'mail.article', [
+                'article'   => $this->article,
+                'title'     => 'Статья удалена',
+                'status'    => false
+            ]
+        )->subject('Статья удалена');
     }
 
     /**
@@ -60,8 +59,6 @@ class Article extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

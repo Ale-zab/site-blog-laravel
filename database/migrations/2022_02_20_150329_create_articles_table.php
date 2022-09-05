@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('name', 255)->collation('utf8mb4_unicode_ci');
             $table->string('short_description', 100)->collation('utf8mb4_unicode_ci');
             $table->text('description')->collation('utf8mb4_unicode_ci');
-            $table->string('url', 255)->collation('utf8mb4_unicode_ci');
+            $table->string('url', 255)->collation('utf8mb4_unicode_ci')->unique();
             $table->tinyInteger('status');
             $table->timestamps();
         });

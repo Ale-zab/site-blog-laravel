@@ -9,9 +9,9 @@
                     <div class="d-flex justify-content-between">
                         <h1 class="blog-post-title">Редактировать статью</h1>
 
-                        <form action="/admin/articles/delete/{{ $article->url }}" method="POST" class="blog-post">
+                        <form action="/admin/articles/{{ $article->url }}" method="POST" class="blog-post"php>
                             @csrf
-                            @method('POST')
+                            @method('DELETE')
 
                             <button type="submit" class="btn btn-danger btn-remove" title="Удалить">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -28,7 +28,7 @@
                 </article>
 
                 <form action="/admin/articles/{{ $article->url }}" method="POST" class="blog-post">
-                    @method('POST')
+                    @method('PUT')
                     @include('form')
                 </form>
 
