@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Observers\ArticleObserver;
+use App\Services\Pushall;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('common.column', function ($view) {
             $view->with('tags', Tag::all());
+        });
+
+        $this->app->singleton('Pushall', function() {
+            return new Pushall(config('pushall.id'), config('pushall.key'));
         });
     }
 

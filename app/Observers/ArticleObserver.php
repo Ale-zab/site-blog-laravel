@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Notifications\Article\ArticleCreated;
 use App\Notifications\Article\ArticleDeleted;
 use App\Notifications\Article\ArticleUpdated;
+use App\Facades\PushallFacade;
 
 class ArticleObserver
 {
@@ -18,6 +19,7 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
+        PushallFacade::send($article->name, $article->description);
         Role::admins()->map->notify(new ArticleCreated($article));
     }
 
