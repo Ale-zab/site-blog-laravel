@@ -22,28 +22,13 @@
 
                     <p class="mt-4">{{ $article->description }}</p>
                 </article>
+                @include('comment')
             </div>
 
             @include('common.column')
         </div>
 
-        <div class="p-4 mb-3 bg-light rounded article-history">
-            <h4 class="fst-italic">История изменений</h4>
 
-            @forelse($article->history as $history)
-                <div class="article-history__item">
-                    <b>Имя: </b> {{ $history->name }} -
-                    <b>Email: </b> {{ $history->email }} -
-                    <b>Изменено в: </b> {{ $history->pivot->created_at->toFormattedDateString() }} -
-                    <b>Было: </b> {{ $history->pivot->before }} -
-                    <b>Стало: </b> {{ $history->pivot->after }}
-                </div>
-            @empty
-                <div>
-                    Истории изменений не найдено!
-                </div> 
-            @endforelse
-        </div>
 
     </main>
 @endsection

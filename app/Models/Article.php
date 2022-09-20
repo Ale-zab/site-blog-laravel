@@ -21,7 +21,7 @@ class Article extends Model
     {
         parent::boot();
 
-        static::updating(function($article) {
+        static::updating(function ($article) {
             $after = $article->getDirty();
             $article->history()->attach(auth()->id(), [
                 'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($after))),
@@ -53,5 +53,10 @@ class Article extends Model
     public function history()
     {
         return $this->belongsToMany(User::class, 'article_histories')->withPivot(['before', 'after'])->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ArticleComment::class)->orderByDesc('created_at');
     }
 }

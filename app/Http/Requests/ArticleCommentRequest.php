@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class ArticleRequest extends FormRequest
+class ArticleCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +26,14 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'              => 'required|min:5|max:100',
-            'short_description' => 'required|max:100',
-            'description'       => 'required',
-            'url'               => 'required|unique:articles,url,' . $this->id
+            'description'       => 'required|string|min:10|max:999',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name'              => 'Название',
-            'short_description' => 'Краткое описание',
-            'description'       => 'Статья',
-            'url'               => 'Адрес статьи'
+            'description'       => 'Комментарий',
         ];
     }
 
@@ -51,9 +46,9 @@ class ArticleRequest extends FormRequest
     {
         return [
             'required'              => 'Поле ":attribute" обязательно для заполнения',
+            'string'                => 'Неверный формат данных',
             'min'                   => 'Поле ":attribute" не должно быть меньше :min символов',
             'max'                   => 'Поле ":attribute" не должно превышать :max символов',
-            'unique'                => 'Данное значение уже используется',
         ];
     }
 }
