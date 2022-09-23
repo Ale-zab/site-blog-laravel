@@ -8,7 +8,6 @@ use App\Events\Article\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use phpDocumentor\Reflection\Types\Parent_;
 
 class Article extends Model
 {
