@@ -7,6 +7,8 @@ use App\Events\Article\ArticleUpdated;
 use App\Events\Article\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use phpDocumentor\Reflection\Types\Parent_;
 
 class Article extends Model
 {
@@ -14,6 +16,19 @@ class Article extends Model
 
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function($article) {
+            $after = $article->getDirty();
+            $article->history()->attach(auth()->id(), [
+                'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($after))),
+                'after' => json_encode($after),
+            ]);
+        });
+    }
 
     public function getRouteKeyName()
     {
@@ -33,5 +48,10 @@ class Article extends Model
     public function get($url)
     {
         return self::where('url', '=', $url)->first();
+    }
+
+    public function history()
+    {
+        return $this->belongsToMany(User::class, 'article_histories')->withPivot(['before', 'after'])->withTimestamps();
     }
 }
