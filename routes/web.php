@@ -9,12 +9,13 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleCommentController;
 
 Route::get('/',                             [HomeController::class, 'index'])->name('index');
 
 Route::resource('/articles', ArticleController::class);
-
-Route::get('/articles/tags/{tag}',          [TagsController::class,  'index']);
+Route::post('/articles/{article}/comment',  [ArticleCommentController::class,  'store'])->name('article.comment');
+Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/contacts',                     [ContactController::class, 'index'])->name('contacts');
 Route::post('/contacts',                    [ContactController::class, 'store']);
