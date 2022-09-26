@@ -15,8 +15,7 @@
         </div>
 
         <div class="row mb-2">
-            @if($articles->isNOtEmpty())
-                @foreach($articles as $articele)
+            @forelse($articles as $articele)
                     <div class="col-md-6">
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -36,8 +35,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-            @else
+            @empty
                 <div class="col-md-12 error">
                     <div class="row g-0 border rounded overflow-hiddenmb-12 shadow-sm error__content">
                         <div class="error__text">
@@ -45,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-            @endif
+            @endforelse
         </div>
     </main>
 @endsection

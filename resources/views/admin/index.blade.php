@@ -12,15 +12,21 @@
                         безорфографичный скатился?</p>
                 </article>
 
-                <div class="list-group mb-4">
+                <div class="list-group mb-3">
                     <a href="/admin/feedback" class="list-group-item list-group-item-action">
                         Сообщения
                     </a>
                 </div>
 
-                <div class="list-group mb-4">
+                <div class="list-group mb-3">
                     <a href="/admin/articles" class="list-group-item list-group-item-action">
                         Статьи
+                    </a>
+                </div>
+
+                <div class="list-group mb-3">
+                    <a href="/admin/news" class="list-group-item list-group-item-action">
+                        Новости
                     </a>
                 </div>
             </div>

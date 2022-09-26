@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class ArticleRequest extends FormRequest
+class NewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,9 @@ class ArticleRequest extends FormRequest
     {
         return [
             'name'              => 'required|min:5|max:100',
-            'short_description' => 'required|max:100',
             'description'       => 'required',
-            'url'               => 'required|unique:articles,url,' . $this->id
+            'url'               => 'required|unique:articles,url,' . $this->id,
+            'status'            => 'required|boolean'
         ];
     }
 
@@ -37,7 +37,6 @@ class ArticleRequest extends FormRequest
     {
         return [
             'name'              => 'Название',
-            'short_description' => 'Краткое описание',
             'description'       => 'Статья',
             'url'               => 'Адрес статьи'
         ];
@@ -55,6 +54,7 @@ class ArticleRequest extends FormRequest
             'min'                   => 'Поле ":attribute" не должно быть меньше :min символов',
             'max'                   => 'Поле ":attribute" не должно превышать :max символов',
             'unique'                => 'Данное значение уже используется',
+            'boolean'               => 'Неверный формат данных',
         ];
     }
 }

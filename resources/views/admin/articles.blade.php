@@ -58,6 +58,8 @@
 
                     </tbody>
                 </table>
+
+                {{ $articles->links() }}
             </div>
         </div>
     </main>

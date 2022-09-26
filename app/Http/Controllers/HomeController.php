@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $articles = Article::publish();
+        $articles = Article::limit(10)->get();
 
         return view('welcome', compact('articles'));
     }
