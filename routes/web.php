@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleCommentController;
 
@@ -15,6 +17,11 @@ Route::get('/',                             [HomeController::class, 'index'])->n
 
 Route::resource('/articles', ArticleController::class);
 Route::post('/articles/{article}/comment',  [ArticleCommentController::class,  'store'])->name('article.comment');
+Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
+
+Route::get('/news',              [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{news}',       [NewsController::class, 'show'])->name('news.show');
+
 Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/contacts',                     [ContactController::class, 'index'])->name('contacts');
@@ -28,6 +35,13 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/articles/{article}/edit',  [AdminArticleController::class, 'edit'])->name('article.edit');
     Route::put('/articles/{article}',       [AdminArticleController::class, 'update'])->name('article.update');
     Route::delete('/articles/{article}',    [AdminArticleController::class, 'destroy'])->name('article.destroy');
+
+    Route::get('/news',              [AdminNewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create',       [AdminNewsController::class, 'create'])->name('news.create');
+    Route::post('/news/create',       [AdminNewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{news}/edit',  [AdminNewsController::class, 'edit'])->name('news.edit');
+    Route::patch('/news/{news}',     [AdminNewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news}',    [AdminNewsController::class, 'destroy'])->name('news.destroy');
 });
 
 Route::get('/aboutus',                      [AboutController::class, 'index'])->name('aboutus');;

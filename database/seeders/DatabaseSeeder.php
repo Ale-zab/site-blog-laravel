@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         UserRoleSeeder::run();
         ArticleSeeder::run();
         MessageSeeder::run();
+        NewsSeeder::run();
     }
 }

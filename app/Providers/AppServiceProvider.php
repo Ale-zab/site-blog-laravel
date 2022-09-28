@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Observers\ArticleObserver;
 use App\Services\Pushall;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
@@ -46,5 +47,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::directive('datetime', function($value) {
             return "<?php echo ($value)->format('H:i:s d.m.Y'); ?>";
         });
+
+        Paginator::defaultView('pagination::bootstrap-4');
     }
 }

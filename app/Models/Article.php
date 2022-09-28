@@ -41,7 +41,7 @@ class Article extends Model
 
     public function scopePublish($query)
     {
-        return $query->where('status', 1)->latest()->get();
+        return $query->where('status', 1)->latest();
     }
 
     public function get($url)
