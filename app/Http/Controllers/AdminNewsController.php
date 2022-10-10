@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsRequest;
 use App\Models\News;
+use App\Services\TagsSynchronizer;
+use Illuminate\Support\Collection;
 
 class AdminNewsController extends Controller
 {
@@ -29,6 +31,8 @@ class AdminNewsController extends Controller
         $news->fill($request->all());
         $news->save();
 
+        TagsSynchronizer::sync($this->getCollectTags(request('tags')), $news);
+
         return redirect()
             ->route('admin.news.index')
             ->with('status', __('action.update'));
@@ -45,11 +49,12 @@ class AdminNewsController extends Controller
         $news->fill($request->all());
         $news->save();
 
+        TagsSynchronizer::sync($this->getCollectTags(request('tags')), $news);
+
         return redirect()
             ->route('admin.news.index')
             ->with('status', __('action.store'));
     }
-
 
     public function destroy(News $news)
     {
@@ -59,5 +64,14 @@ class AdminNewsController extends Controller
         return redirect()
             ->route('admin.news.index')
             ->with('status', __('action.destroy'));
+    }
+
+    protected function getCollectTags($request = ''): Collection
+    {
+        $tags = collect(explode(',', $request))->keyBy(function ($item) {
+            return $item;
+        });
+
+        return $tags;
     }
 }

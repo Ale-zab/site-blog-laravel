@@ -36,7 +36,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article');
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function scopePublish($query)

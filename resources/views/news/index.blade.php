@@ -22,8 +22,10 @@
                                         <h3 class="mb-0">{{$item->name}}</h3>
                                         <div class="text-muted">{{$item->created_at->toFormattedDateString()}}</div>
                                         <p class="mb-2 card-text">{{ mb_strimwidth($item->description, 0, 150, '...') }}</p>
+                                        @include('tags', ['tags' => $item->tags])
 
-                                        <a href="/news/{{$item->url}}" class="mt-3 mb-0 stretched-link">Читать дальше</a>
+                                        <a href="/news/{{$item->url}}" class="mt-3 mb-0 stretched-link">Читать
+                                            дальше</a>
                                     </div>
                                 </div>
                             </div>
