@@ -34,7 +34,7 @@
                         <div class="col-md-12 error">
                             <div class="row g-0 border rounded overflow-hiddenmb-12 shadow-sm error__content">
                                 <div class="error__text">
-                                    Статьи не найдены
+                                    Новости не найдены
                                 </div>
                             </div>
                         </div>

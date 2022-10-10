@@ -22,13 +22,12 @@
 
                     <p class="mt-4">{{ $article->description }}</p>
                 </article>
-                @include('comment')
+
+                @include('comment', ['alias' => 'articles','data' => $article])
             </div>
 
             @include('common.column')
         </div>
-
-
 
     </main>
 @endsection

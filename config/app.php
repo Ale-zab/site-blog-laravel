@@ -177,7 +177,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\FortifyUIServiceProvider::class,
         App\Providers\TagsSynchronizerServiceProvider::class,
-
+        App\Providers\CommentServiceProvider::class,
     ],
 
     /*

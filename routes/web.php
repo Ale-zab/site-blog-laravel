@@ -11,18 +11,15 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ArticleCommentController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/',                             [HomeController::class, 'index'])->name('index');
 
 Route::resource('/articles', ArticleController::class);
-Route::post('/articles/{article}/comment',  [ArticleCommentController::class,  'store'])->name('article.comment');
 Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/news',              [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{news}',       [NewsController::class, 'show'])->name('news.show');
-
-Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/contacts',                     [ContactController::class, 'index'])->name('contacts');
 Route::post('/contacts',                    [ContactController::class, 'store']);
@@ -43,6 +40,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::patch('/news/{news}',     [AdminNewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}',    [AdminNewsController::class, 'destroy'])->name('news.destroy');
 });
+
+Route::post('/comment/{alias}/{url}',  [CommentController::class,  'store'])->name('comment');
 
 Route::get('/aboutus',                      [AboutController::class, 'index'])->name('aboutus');;
 

@@ -9,6 +9,8 @@
                     <h2 class="blog-post-title">{{ $news->name }}</h2>
                     <p class="mt-4">{{ $news->description }}</p>
                 </article>
+
+                @include('comment', ['alias' => 'news','data' => $news])
             </div>
         </div>
     </main>

@@ -51,11 +51,14 @@ class Article extends Model
 
     public function history()
     {
-        return $this->belongsToMany(User::class, 'article_histories')->withPivot(['before', 'after'])->withTimestamps();
+        return $this->belongsToMany(User::class, 'article_histories')
+            ->withPivot(['before', 'after'])
+            ->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany(ArticleComment::class)->orderByDesc('created_at');
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderByDesc('created_at');
     }
 }
