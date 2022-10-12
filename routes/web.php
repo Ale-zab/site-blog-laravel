@@ -12,6 +12,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StatisticController;
 
 Route::get('/',                             [HomeController::class, 'index'])->name('index');
 
@@ -26,6 +27,8 @@ Route::post('/contacts',                    [ContactController::class, 'store'])
 
 Route::get('/admin',                        [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/feedback',               [AdminController::class, 'feedback']);
+
+Route::get('/admin/statistics',               [StatisticController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/articles',                 [AdminArticleController::class, 'index'])->name('article');

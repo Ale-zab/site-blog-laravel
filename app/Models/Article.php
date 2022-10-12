@@ -61,4 +61,24 @@ class Article extends Model
         return $this->morphMany(Comment::class, 'commentable')
             ->orderByDesc('created_at');
     }
+
+    public function scopeLongest($query)
+    {
+        return $query->where('description', $query->max('description'))->first();
+    }
+
+    public function scopeShortest($query)
+    {
+        return $query->where('description', $query->min('description'))->first();
+    }
+
+    public function scopePopularArticle($builder)
+    {
+        return $builder->withCount('comments')->orderByDesc('comments_count')->first();
+    }
+
+    public function scopeMostInconsistentArticle($builder)
+    {
+        return $builder->withCount('history')->orderByDesc('history_count')->first();
+    }
 }
