@@ -36,7 +36,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article');
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function scopePublish($query)
@@ -51,11 +51,34 @@ class Article extends Model
 
     public function history()
     {
-        return $this->belongsToMany(User::class, 'article_histories')->withPivot(['before', 'after'])->withTimestamps();
+        return $this->belongsToMany(User::class, 'article_histories')
+            ->withPivot(['before', 'after'])
+            ->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany(ArticleComment::class)->orderByDesc('created_at');
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderByDesc('created_at');
+    }
+
+    public function scopeLongest($query)
+    {
+        return $query->where('description', $query->max('description'))->first();
+    }
+
+    public function scopeShortest($query)
+    {
+        return $query->where('description', $query->min('description'))->first();
+    }
+
+    public function scopePopularArticle($builder)
+    {
+        return $builder->withCount('comments')->orderByDesc('comments_count')->first();
+    }
+
+    public function scopeMostInconsistentArticle($builder)
+    {
+        return $builder->withCount('history')->orderByDesc('history_count')->first();
     }
 }

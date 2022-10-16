@@ -25,4 +25,15 @@ class News extends Model
     {
         return self::where('url', '=', $url)->first();
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderByDesc('created_at');
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

@@ -11,24 +11,24 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ArticleCommentController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StatisticController;
 
 Route::get('/',                             [HomeController::class, 'index'])->name('index');
 
 Route::resource('/articles', ArticleController::class);
-Route::post('/articles/{article}/comment',  [ArticleCommentController::class,  'store'])->name('article.comment');
-Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
+Route::get('/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/news',              [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{news}',       [NewsController::class, 'show'])->name('news.show');
-
-Route::get('/articles/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/contacts',                     [ContactController::class, 'index'])->name('contacts');
 Route::post('/contacts',                    [ContactController::class, 'store']);
 
 Route::get('/admin',                        [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/feedback',               [AdminController::class, 'feedback']);
+
+Route::get('/admin/statistics',               [StatisticController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/articles',                 [AdminArticleController::class, 'index'])->name('article');
@@ -43,6 +43,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::patch('/news/{news}',     [AdminNewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}',    [AdminNewsController::class, 'destroy'])->name('news.destroy');
 });
+
+Route::post('/comment/{alias}/{url}',  [CommentController::class,  'store'])->name('comment');
 
 Route::get('/aboutus',                      [AboutController::class, 'index'])->name('aboutus');;
 

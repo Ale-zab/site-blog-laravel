@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Observers\ArticleObserver;
 use App\Services\Pushall;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('tags', Tag::all());
         });
 
-        $this->app->singleton('Pushall', function() {
+        $this->app->singleton('Pushall', function () {
             return new Pushall(config('pushall.id'), config('pushall.key'));
         });
     }
@@ -40,11 +41,11 @@ class AppServiceProvider extends ServiceProvider
 
         Fortify::viewPrefix('auth.');
 
-        \Blade::if('admin', function() {
+        \Blade::if('admin', function () {
             return Auth::user() ? Auth::user()->isAdmin() : false;
         });
 
-        \Blade::directive('datetime', function($value) {
+        \Blade::directive('datetime', function ($value) {
             return "<?php echo ($value)->format('H:i:s d.m.Y'); ?>";
         });
 

@@ -29,6 +29,12 @@
                         Новости
                     </a>
                 </div>
+
+                <div class="list-group mb-3">
+                    <a href="/admin/statistics" class="list-group-item list-group-item-action">
+                        Статистика
+                    </a>
+                </div>
             </div>
         </div>
     </main>

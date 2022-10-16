@@ -45,4 +45,19 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->roles()->where('prefix', 'admin')->exists();
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'owner_id');
+    }
+
+    public function scopeMostActiveAuthor($builder)
+    {
+        return $builder->withCount('articles')->orderByDesc('articles_count')->get('name','id')->first();
+    }
+
+    public function scopeAverageNumberOfArticles($builder)
+    {
+        return $builder->has('articles')->withCount('articles')->get()->avg('articles_count');
+    }
 }

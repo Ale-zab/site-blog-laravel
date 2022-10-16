@@ -1,6 +1,6 @@
 <div class="mt-5">
     <div>
-        <form method="POST" class="blog-post" action="{{ route('article.comment', $article) }}">
+        <form method="POST" class="blog-post" action="{{ route('comment', [$alias, $data->url]) }}">
             @csrf
 
             <div class="input-group mb-3">
@@ -20,7 +20,7 @@
 
     <div class="text-bg-light">
         @auth
-            @forelse($article->comments as $comment)
+            @forelse($data->comments as $comment)
                 <div class="card text-bg-primary mb-3" style="max-width: 100%">
                     <div
                         class="card-header">{{ $comment->user->name }} {{ $comment->created_at->toFormattedDateString() }}</div>

@@ -13,8 +13,9 @@ class TagsController extends Controller
 
     public function index(Tag $tag)
     {
-        $articles   = $tag->articles()->with('tags')->get();
+        $data['articles'] = $tag->articles()->with('tags')->get();
+        $data['news'] = $tag->news()->with('tags')->get();
 
-        return view('articles', compact('articles'));
+        return view('tags.index', compact('data'));
     }
 }

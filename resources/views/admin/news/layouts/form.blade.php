@@ -57,6 +57,17 @@
     @enderror
 </div>
 
+<div class="mb-3">
+    <label for="tags" class="form-label">Теги</label>
+
+    @if (isset($news->tags))
+        <input type="text" name="tags" class="form-control" placeholder="Теги" id="tags"
+               value="{{ old('tags', $news->tags->pluck('name')->implode(',')) }}">
+    @else
+        <input type="text" name="tags" class="form-control" placeholder="Теги" id="tags" value="{{ old('tags') }}">
+    @endif
+</div>
+
 <div class="mb-3 form-check">
 
     @if (isset($news->status) && $news->status)
