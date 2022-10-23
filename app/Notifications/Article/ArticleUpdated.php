@@ -4,6 +4,7 @@ namespace App\Notifications\Article;
 
 use App\Models\Article as Article;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 

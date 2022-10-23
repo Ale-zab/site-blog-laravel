@@ -14,8 +14,10 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ReportController;
+use App\Events\ArticleUpdate;
 
-Route::get('/',                             [HomeController::class, 'index'])->name('index');
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::resource('/articles', ArticleController::class);
 Route::get('/tags/{tag}',           [TagsController::class,  'index']);

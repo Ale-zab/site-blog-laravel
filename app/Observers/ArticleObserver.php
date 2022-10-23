@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Article;
 use App\Models\Role;
+use App\Events\ArticleUpdated as ArticleUpdatedBroadcasting;
 use App\Notifications\Article\ArticleCreated;
 use App\Notifications\Article\ArticleDeleted;
 use App\Notifications\Article\ArticleUpdated;
