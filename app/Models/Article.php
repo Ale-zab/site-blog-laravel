@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Events\Article\ArticleDeleted;
-use App\Events\Article\ArticleUpdated;
-use App\Events\Article\ArticleCreated;
+use App\Events\ArticleUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -15,6 +13,9 @@ class Article extends Model
 
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
+    protected $dispatchesEvents = [
+        'updated' => ArticleUpdated::class
+    ];
 
     protected static function boot()
     {
