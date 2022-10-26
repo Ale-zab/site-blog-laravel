@@ -9,12 +9,12 @@ class Role extends Model
 {
     use HasFactory;
 
-    public function admins()
+    public static function admins()
     {
         return self::getRole('admin')->belongsToMany(User::class, 'user_role')->get();
     }
 
-    public function getRole($prefix)
+    public static function getRole($prefix)
     {
         return self::where('prefix', $prefix)->first();
     }
