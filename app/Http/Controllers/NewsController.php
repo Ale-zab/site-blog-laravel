@@ -8,13 +8,19 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::publish()->paginate(10);
+        $news = \Cache::tags(['news'])->rememberForever('news_list_' . request('page', 1), function () {
+            return News::publish()->paginate(10);;
+        });
 
         return view('news.index', compact('news'));
     }
 
-    public function show(News $news)
+    public function show($url)
     {
+        $news = \Cache::tags(['news'])->rememberForever('news_item_' . $url, function () use ($url) {
+            return News::findOrFail($url);
+        });
+
         return view('news.show', compact('news'));
     }
 }

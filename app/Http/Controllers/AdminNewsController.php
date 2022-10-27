@@ -16,7 +16,9 @@ class AdminNewsController extends Controller
 
     public function index()
     {
-        $news = News::paginate(20);
+        $news = \Cache::tags(['news', 'admin'])->rememberForever('news_admin_list_' . request('page', 1), function () {
+            return News::paginate(20);
+        });
 
         return view('admin.news.index', compact('news'));
     }

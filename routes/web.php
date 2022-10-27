@@ -21,7 +21,7 @@ Route::resource('/articles', ArticleController::class);
 Route::get('/tags/{tag}',           [TagsController::class,  'index']);
 
 Route::get('/news',              [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{news}',       [NewsController::class, 'show'])->name('news.show');
+Route::get('/news/{url}',       [NewsController::class, 'show'])->name('news.show');
 
 Route::get('/contacts',                     [ContactController::class, 'index'])->name('contacts');
 Route::post('/contacts',                    [ContactController::class, 'store']);

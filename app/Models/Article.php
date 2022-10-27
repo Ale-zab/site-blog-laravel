@@ -13,6 +13,7 @@ class Article extends Model
 
     protected $fillable = ['id', 'name', 'url', 'short_description', 'description', 'status', 'owner_id'];
     protected $guarded = ['_method', '_token'];
+
     protected $dispatchesEvents = [
         'updated' => ArticleUpdated::class
     ];
@@ -27,6 +28,18 @@ class Article extends Model
                 'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($after))),
                 'after' => json_encode($after),
             ]);
+        });
+
+        static::created(function() {
+            \Cache::tags(['articles'])->flush();
+        });
+
+        static::updated(function() {
+            \Cache::tags(['articles'])->flush();
+        });
+
+        static::deleted(function() {
+            \Cache::tags(['articles'])->flush();
         });
     }
 

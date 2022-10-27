@@ -10,6 +10,25 @@ class News extends Model
     use HasFactory;
 
     protected $guarded = ['checkbox'];
+    protected  $primaryKey = 'url';
+    public $incrementing = false;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function () {
+            \Cache::tags(['news'])->flush();
+        });
+
+        static::updated(function () {
+            \Cache::tags(['news'])->flush();
+        });
+
+        static::deleted(function () {
+            \Cache::tags(['news'])->flush();
+        });
+    }
 
     public function getRouteKeyName()
     {
