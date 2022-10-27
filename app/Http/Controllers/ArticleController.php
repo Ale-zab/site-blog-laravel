@@ -39,8 +39,12 @@ class ArticleController extends Controller
         return redirect('/articles/' . $article->url);
     }
 
-    public function show(Article $article)
+    public function show($url)
     {
+        $article = \Cache::tags(['articles'])->rememberForever('article_item_' . $url, function () use ($url) {
+            return Article::where('url', $url)->first();
+        });
+
         return view('show', compact('article'));
     }
 
