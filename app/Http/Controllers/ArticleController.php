@@ -16,7 +16,9 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->publish()->paginate(10);
+        $articles = \Cache::tags(['articles'])->rememberForever('article_list_' . request('page'), function () {
+            return Article::with('tags')->publish()->paginate(10);
+        });
 
         return view('articles', compact('articles'));
     }
@@ -37,8 +39,12 @@ class ArticleController extends Controller
         return redirect('/articles/' . $article->url);
     }
 
-    public function show(Article $article)
+    public function show($url)
     {
+        $article = \Cache::tags(['articles'])->rememberForever('article_item_' . $url, function () use ($url) {
+            return Article::where('url', $url)->first();
+        });
+
         return view('show', compact('article'));
     }
 

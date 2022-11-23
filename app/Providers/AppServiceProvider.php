@@ -22,7 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         view()->composer('common.column', function ($view) {
-            $view->with('tags', Tag::all());
+            $view->with('tags',
+                \Cache::tags(['tags'])->rememberForever('tags_list', function () {
+                    return Tag::all();
+                }));
         });
 
         $this->app->singleton('Pushall', function () {
